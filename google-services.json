@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "822517212105",
+    "project_id": "sushismackdown-app",
+    "storage_bucket": "sushismackdown-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822517212105:android:0b1fbd87b38bab8210be18",
+        "android_client_info": {
+          "package_name": "com.sushi.smackdown"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4CQfAbyUdrLAbp4w0__5iRioo5lE1XoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -88,24 +88,29 @@ Supabase migrations are in `supabase/migrations/`. Current schema includes:
 The command to deploy is:
 
 ```bash
-# Set the variables
-export PROJECT_ID=
-export REGION=us-east1
-export SERVICE_NAME=
+$ErrorActionPreference = "Stop"
+
+$PROJECT_ID = "sushismackdown-app"
+$REGION = "us-west1"
+$SERVICE_NAME = "sushismackdown-api-service"
 
 # Get the project number
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+$PROJECT_NUMBER = (gcloud projects describe $PROJECT_ID --format="value(projectNumber)").Trim()
 
-# Give the deployment service account access to the secrets
-gcloud projects add-iam-policy-binding $PROJECT_NUMBER \
-  --member="serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
+# Service account used at runtime
+$RUNTIME_SA = "$PROJECT_NUMBER-compute@developer.gserviceaccount.com"
+
+# Give the runtime service account access to secrets
+gcloud projects add-iam-policy-binding $PROJECT_ID `
+  --member="serviceAccount:$RUNTIME_SA" `
   --role="roles/secretmanager.secretAccessor"
 
 # Deploy to Cloud Run
-gcloud run deploy $SERVICE_NAME \
-  --source . \
-  --region=$REGION \
-  --project=$PROJECT_ID \
-  --allow-unauthenticated \
-  --service-account="$PROJECT_NUMBER-compute@developer.gserviceaccount.com"
+gcloud run deploy $SERVICE_NAME `
+  --source . `
+  --region=$REGION `
+  --project=$PROJECT_ID `
+  --allow-unauthenticated `
+  --service-account="$RUNTIME_SA"
+
 ```
